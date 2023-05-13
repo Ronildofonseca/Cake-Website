@@ -195,3 +195,33 @@ AOS.init({
   });
   $("#book_time").timepicker();
 })(jQuery);
+
+//Email com dados
+const form = document.querySelector('#enviarDados');
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const name = document.querySelector('input[name="name"]').value;
+  const email = document.querySelector('input[name="email"]').value;
+  const message = document.querySelector('textarea[name="message"]').value;
+
+  const data = {
+    service_id: 'service_3v5aio5',
+    template_id: 'template_aqkgwev',
+    user_id: 'nwRYifQJn6riCVM0YoPZa',
+    template_params: {
+      name: name,
+      email: email,
+      message: message
+    }
+  };
+
+  fetch('https://api.emailjs.com/api/v1.0/email/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(response => console.log(response))
+  .catch(error => console.error(error));
+});
+
